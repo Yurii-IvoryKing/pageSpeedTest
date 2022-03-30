@@ -1,4 +1,91 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;800;900&display=swap);
 @charset "UTF-8";
+@font-face {
+  font-family: icofont;
+  font-display: swap;
+  src: url("../fonts/icofont.woff2") format("woff2"), url("../fonts/icofont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+[class*=_icon-]:before {
+  font-family: "icofont";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class*=_icon-]:before {
+  display: block;
+}
+
+._icon-favorite:before {
+  content: "\e907";
+}
+
+._icon-arrow:before {
+  content: "\e900";
+}
+
+._icon-cart:before {
+  content: "\e901";
+}
+
+._icon-catalogue:before {
+  content: "\e902";
+}
+
+._icon-compare:before {
+  content: "\e903";
+}
+
+._icon-discount:before {
+  content: "\e904";
+}
+
+._icon-download:before {
+  content: "\e905";
+}
+
+._icon-dropdown:before {
+  content: "\e906";
+}
+
+._icon-favorite_active:before {
+  content: "\e90f";
+}
+
+._icon-filter:before {
+  content: "\e908";
+}
+
+._icon-geo:before {
+  content: "\e909";
+}
+
+._icon-plus:before {
+  content: "\e90a";
+}
+
+._icon-reccomend:before {
+  content: "\e90b";
+}
+
+._icon-redact:before {
+  content: "\e90c";
+}
+
+._icon-redact_noborder:before {
+  content: "\e90d";
+}
+
+._icon-sort:before {
+  content: "\e90e";
+}
+
 * {
   padding: 0px;
   margin: 0px;
@@ -20,7 +107,7 @@ body {
 body {
   color: #000;
   line-height: 1;
-  font-family: "";
+  font-family: "Inter";
   font-size: 0.875rem;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
@@ -32,7 +119,7 @@ body {
 input,
 button,
 textarea {
-  font-family: "";
+  font-family: "Inter";
   font-size: inherit;
 }
 
@@ -73,6 +160,9 @@ h6 {
   font-size: inherit;
 }
 
+body {
+  background: #919191;
+}
 .lock body {
   overflow: hidden;
   touch-action: none;
@@ -97,7 +187,7 @@ h6 {
 Снипет (HTML): cnt
 */
 [class*=__container] {
-  max-width: 73.125rem;
+  max-width: 88.125rem;
   box-sizing: content-box;
   margin: 0 auto;
   padding: 0 0.9375rem;
@@ -117,6 +207,51 @@ h6 {
 
 [class*=-ibg_contain] img {
   object-fit: contain;
+}
+
+.main-btn {
+  display: inline-block;
+  padding: 0.75rem 1.25rem 0.8125rem;
+  background: #f53b49;
+  border-radius: 0.25rem;
+  transition: 0.1s ease-in-out;
+}
+.main-btn .btn-text {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  color: #ffffff;
+}
+.main-btn .btn-text::before {
+  transition: 0.2s;
+  margin-right: 0.375rem;
+  font-size: 1.5rem;
+}
+.main-btn > * {
+  transition: 0.1s ease-in-out;
+}
+@media (any-hover: hover) {
+  .main-btn:hover {
+    background: #e32a38;
+  }
+}
+
+.bordered-button {
+  box-shadow: inset 0px 0px 0px 0.0625rem #f53b49;
+  background-color: transparent;
+}
+.bordered-button .btn-text {
+  color: #f53b49;
+}
+@media (any-hover: hover) {
+  .bordered-button:hover {
+    background: #f53b49;
+  }
+  .bordered-button:hover .btn-text {
+    color: #ffffff;
+  }
 }
 
 /*

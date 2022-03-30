@@ -1,6 +1,114 @@
 (() => {
   "use strict";
-  class e {
+  function e(e) {
+    this.type = e;
+  }
+  (e.prototype.init = function () {
+    const e = this;
+    (this.оbjects = []),
+      (this.daClassname = "_dynamic_adapt_"),
+      (this.nodes = document.querySelectorAll("[data-da]"));
+    for (let e = 0; e < this.nodes.length; e++) {
+      const t = this.nodes[e],
+        s = t.dataset.da.trim().split(","),
+        l = {};
+      (l.element = t),
+        (l.parent = t.parentNode),
+        (l.destination = document.querySelector(s[0].trim())),
+        (l.breakpoint = s[1] ? s[1].trim() : "767"),
+        (l.place = s[2] ? s[2].trim() : "last"),
+        (l.index = this.indexInParent(l.parent, l.element)),
+        this.оbjects.push(l);
+    }
+    this.arraySort(this.оbjects),
+      (this.mediaQueries = Array.prototype.map.call(
+        this.оbjects,
+        function (e) {
+          return (
+            "(" + this.type + "-width: " + e.breakpoint + "px)," + e.breakpoint
+          );
+        },
+        this
+      )),
+      (this.mediaQueries = Array.prototype.filter.call(
+        this.mediaQueries,
+        function (e, t, s) {
+          return Array.prototype.indexOf.call(s, e) === t;
+        }
+      ));
+    for (let t = 0; t < this.mediaQueries.length; t++) {
+      const s = this.mediaQueries[t],
+        l = String.prototype.split.call(s, ","),
+        i = window.matchMedia(l[0]),
+        a = l[1],
+        o = Array.prototype.filter.call(this.оbjects, function (e) {
+          return e.breakpoint === a;
+        });
+      i.addListener(function () {
+        e.mediaHandler(i, o);
+      }),
+        this.mediaHandler(i, o);
+    }
+  }),
+    (e.prototype.mediaHandler = function (e, t) {
+      if (e.matches)
+        for (let e = 0; e < t.length; e++) {
+          const s = t[e];
+          (s.index = this.indexInParent(s.parent, s.element)),
+            this.moveTo(s.place, s.element, s.destination);
+        }
+      else
+        for (let e = t.length - 1; e >= 0; e--) {
+          const s = t[e];
+          s.element.classList.contains(this.daClassname) &&
+            this.moveBack(s.parent, s.element, s.index);
+        }
+    }),
+    (e.prototype.moveTo = function (e, t, s) {
+      t.classList.add(this.daClassname),
+        "last" === e || e >= s.children.length
+          ? s.insertAdjacentElement("beforeend", t)
+          : "first" !== e
+          ? s.children[e].insertAdjacentElement("beforebegin", t)
+          : s.insertAdjacentElement("afterbegin", t);
+    }),
+    (e.prototype.moveBack = function (e, t, s) {
+      t.classList.remove(this.daClassname),
+        void 0 !== e.children[s]
+          ? e.children[s].insertAdjacentElement("beforebegin", t)
+          : e.insertAdjacentElement("beforeend", t);
+    }),
+    (e.prototype.indexInParent = function (e, t) {
+      const s = Array.prototype.slice.call(e.children);
+      return Array.prototype.indexOf.call(s, t);
+    }),
+    (e.prototype.arraySort = function (e) {
+      "min" === this.type
+        ? Array.prototype.sort.call(e, function (e, t) {
+            return e.breakpoint === t.breakpoint
+              ? e.place === t.place
+                ? 0
+                : "first" === e.place || "last" === t.place
+                ? -1
+                : "last" === e.place || "first" === t.place
+                ? 1
+                : e.place - t.place
+              : e.breakpoint - t.breakpoint;
+          })
+        : Array.prototype.sort.call(e, function (e, t) {
+            return e.breakpoint === t.breakpoint
+              ? e.place === t.place
+                ? 0
+                : "first" === e.place || "last" === t.place
+                ? 1
+                : "last" === e.place || "first" === t.place
+                ? -1
+                : t.place - e.place
+              : t.breakpoint - e.breakpoint;
+          });
+    });
+  new e("max").init();
+  class t {
     constructor(e) {
       let t = {
         logging: !0,
@@ -172,7 +280,7 @@
             this.options.classes.popupActive
           ),
           document.body.classList.add(this.options.classes.bodyActive),
-          this._reopen ? (this._reopen = !1) : o(),
+          this._reopen ? (this._reopen = !1) : n(),
           this.targetOpen.element.setAttribute("aria-hidden", "false"),
           (this.previousOpen.selector = this.targetOpen.selector),
           (this.previousOpen.element = this.targetOpen.element),
@@ -196,7 +304,7 @@
         "" !== e.trim() &&
         (this.previousOpen.selector = e),
         this.isOpen &&
-          a &&
+          o &&
           (this.options.on.beforeClose(this),
           this.targetOpen.element.hasAttribute(this.options.youtubeAttribute) &&
             this.targetOpen.element.querySelector(
@@ -211,7 +319,7 @@
           this.previousOpen.element.setAttribute("aria-hidden", "true"),
           this._reopen ||
             (document.body.classList.remove(this.options.classes.bodyActive),
-            o(),
+            n(),
             (this.isOpen = !1)),
           this._removeHash(),
           this._selectorOpen &&
@@ -261,10 +369,10 @@
         : e[0].focus();
     }
     popupLogging(e) {
-      this.options.logging && r(`[Попапос]: ${e}`);
+      this.options.logging && d(`[Попапос]: ${e}`);
     }
   }
-  let t = {
+  let s = {
     Android: function () {
       return navigator.userAgent.match(/Android/i);
     },
@@ -282,11 +390,11 @@
     },
     any: function () {
       return (
-        t.Android() || t.BlackBerry() || t.iOS() || t.Opera() || t.Windows()
+        s.Android() || s.BlackBerry() || s.iOS() || s.Opera() || s.Windows()
       );
     },
   };
-  let s = (e, t = 500, s = 0) => {
+  let l = (e, t = 500, s = 0) => {
       e.classList.contains("_slide") ||
         (e.classList.add("_slide"),
         (e.style.transitionProperty = "height, margin, padding"),
@@ -312,7 +420,7 @@
             e.classList.remove("_slide");
         }, t));
     },
-    l = (e, t = 500, s = 0) => {
+    i = (e, t = 500, s = 0) => {
       if (!e.classList.contains("_slide")) {
         e.classList.add("_slide"),
           (e.hidden = !e.hidden && null),
@@ -341,14 +449,14 @@
           }, t);
       }
     },
-    i = (e, t = 500) => (e.hidden ? l(e, t) : s(e, t)),
-    a = !0,
-    o = (e = 500) => {
-      document.documentElement.classList.contains("lock") ? c(e) : n(e);
+    a = (e, t = 500) => (e.hidden ? i(e, t) : l(e, t)),
+    o = !0,
+    n = (e = 500) => {
+      document.documentElement.classList.contains("lock") ? c(e) : r(e);
     },
     c = (e = 500) => {
       let t = document.querySelector("body");
-      if (a) {
+      if (o) {
         let s = document.querySelectorAll("[data-lp]");
         setTimeout(() => {
           for (let e = 0; e < s.length; e++) {
@@ -357,15 +465,15 @@
           (t.style.paddingRight = "0px"),
             document.documentElement.classList.remove("lock");
         }, e),
-          (a = !1),
+          (o = !1),
           setTimeout(function () {
-            a = !0;
+            o = !0;
           }, e);
       }
     },
-    n = (e = 500) => {
+    r = (e = 500) => {
       let t = document.querySelector("body");
-      if (a) {
+      if (o) {
         let s = document.querySelectorAll("[data-lp]");
         for (let e = 0; e < s.length; e++) {
           s[e].style.paddingRight =
@@ -378,18 +486,45 @@
           document.querySelector(".wrapper").offsetWidth +
           "px"),
           document.documentElement.classList.add("lock"),
-          (a = !1),
+          (o = !1),
           setTimeout(function () {
-            a = !0;
+            o = !0;
           }, e);
       }
     };
-  function r(e) {
+  function d(e) {
     setTimeout(() => {
       window.FLS && console.log(e);
     }, 0);
   }
-  class h {
+  let h = (e, t = !1, s = 500, l = 0) => {
+    const i = document.querySelector(e);
+    if (i) {
+      let a = "",
+        o = 0;
+      t &&
+        ((a = "header.header"), (o = document.querySelector(a).offsetHeight));
+      let n = {
+        speedAsDuration: !0,
+        speed: s,
+        header: a,
+        offset: l,
+        easing: "easeOutQuad",
+      };
+      if (
+        (document.documentElement.classList.contains("menu-open") &&
+          (c(), document.documentElement.classList.remove("menu-open")),
+        "undefined" != typeof SmoothScroll)
+      )
+        new SmoothScroll().animateScroll(i, "", n);
+      else {
+        let e = i.getBoundingClientRect().top + scrollY;
+        window.scrollTo({ top: o ? e - o : e, behavior: "smooth" });
+      }
+      d(`[gotoBlock]: Юхуу...едем к ${e}`);
+    } else d(`[gotoBlock]: Ой ой..Такого блока нет на странице: ${e}`);
+  };
+  class p {
     constructor(e, t = null) {
       if (
         ((this.config = Object.assign({ init: !0, logging: !0 }, e)),
@@ -593,7 +728,7 @@
         ).selectElement;
       s.classList.contains("_slide") ||
         (e.classList.toggle(this.selectClasses.classSelectOpen),
-        i(s, t.dataset.speed));
+        a(s, t.dataset.speed));
     }
     setSelectTitleValue(e, t) {
       const s = this.getSelectElement(
@@ -715,14 +850,14 @@
         i = e.dataset.class ? ` ${e.dataset.class}` : "",
         a = !!e.dataset.href && e.dataset.href,
         o = e.hasAttribute("data-href-blank") ? 'target="_blank"' : "";
-      let c = "";
+      let n = "";
       return (
-        (c += a
+        (n += a
           ? `<a ${o} ${l} href="${a}" data-value="${e.value}" class="${this.selectClasses.classSelectOption}${i}${s}">`
           : `<button ${l} class="${this.selectClasses.classSelectOption}${i}${s}" data-value="${e.value}" type="button">`),
-        (c += this.getSelectElementContent(e)),
-        (c += a ? "</a>" : "</button>"),
-        c
+        (n += this.getSelectElementContent(e)),
+        (n += a ? "</a>" : "</button>"),
+        n
       );
     }
     setOptions(e, t) {
@@ -770,7 +905,7 @@
     }
     setSelectChange(e) {
       if (
-        (e.hasAttribute("data-validate") && u.validateInput(e),
+        (e.hasAttribute("data-validate") && m.validateInput(e),
         e.hasAttribute("data-submit") && e.value)
       ) {
         let t = document.createElement("button");
@@ -819,11 +954,11 @@
       );
     }
     setLogging(e) {
-      this.config.logging && r(`[select]: ${e}`);
+      this.config.logging && d(`[select]: ${e}`);
     }
   }
-  const d = { inputMaskModule: null, selectModule: null };
-  let u = {
+  const u = { inputMaskModule: null, selectModule: null };
+  let m = {
     getErrors(e) {
       let t = 0,
         s = e.querySelectorAll("*[data-required]");
@@ -876,7 +1011,7 @@
             const s = t[e];
             s.parentElement.classList.remove("_form-focus"),
               s.classList.remove("_form-focus"),
-              u.removeError(s),
+              m.removeError(s),
               (s.value = s.dataset.placeholder);
           }
           let s = e.querySelectorAll(".checkbox__input");
@@ -884,12 +1019,12 @@
             for (let e = 0; e < s.length; e++) {
               s[e].checked = !1;
             }
-          if (d.selectModule) {
+          if (u.selectModule) {
             let t = e.querySelectorAll(".select");
             if (t.length)
               for (let e = 0; e < t.length; e++) {
                 const s = t[e].querySelector("select");
-                d.selectModule.selectBuild(s);
+                u.selectModule.selectBuild(s);
               }
           }
         }, 0);
@@ -897,9 +1032,9 @@
     emailTest: (e) =>
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(e.value),
   };
-  let p = !1;
+  let g = !1;
   setTimeout(() => {
-    if (p) {
+    if (g) {
       let e = new Event("windowScroll");
       window.addEventListener("scroll", function (t) {
         document.dispatchEvent(e);
@@ -923,11 +1058,11 @@
       let e = document.querySelector(".icon-menu");
       e &&
         e.addEventListener("click", function (e) {
-          a && (o(), document.documentElement.classList.toggle("menu-open"));
+          o && (n(), document.documentElement.classList.toggle("menu-open"));
         });
     })(),
     (function () {
-      if (document.querySelectorAll("[data-fullscreen]").length && t.any()) {
+      if (document.querySelectorAll("[data-fullscreen]").length && s.any()) {
         function e() {
           let e = 0.01 * window.innerHeight;
           document.documentElement.style.setProperty("--vh", `${e}px`);
@@ -935,6 +1070,66 @@
         window.addEventListener("resize", e), e();
       }
     })(),
-    new e({}),
-    (d.selectModule = new h({}));
+    new t({}),
+    (u.selectModule = new p({})),
+    (function () {
+      function e(e) {
+        if ("click" === e.type) {
+          const t = e.target;
+          if (t.closest("[data-goto]")) {
+            const s = t.closest("[data-goto]"),
+              l = s.dataset.goto ? s.dataset.goto : "",
+              i = !!s.hasAttribute("data-goto-header"),
+              a = s.dataset.gotoSpeed ? s.dataset.gotoSpeed : "500";
+            h(l, i, a), e.preventDefault();
+          }
+        } else if ("watcherCallback" === e.type && e.detail) {
+          const t = e.detail.entry,
+            s = t.target;
+          if ("navigator" === s.dataset.watch) {
+            const e = s.id,
+              l =
+                (document.querySelector("[data-goto]._navigator-active"),
+                document.querySelector(`[data-goto="${e}"]`));
+            t.isIntersecting
+              ? l && l.classList.add("_navigator-active")
+              : l && l.classList.remove("_navigator-active");
+          }
+        }
+      }
+      document.addEventListener("click", e),
+        document.addEventListener("watcherCallback", e);
+    })(),
+    (function () {
+      g = !0;
+      const e = document.querySelector("header.header"),
+        t = e.hasAttribute("data-scroll-show"),
+        s = e.dataset.scrollShow ? e.dataset.scrollShow : 500,
+        l = e.dataset.scroll ? e.dataset.scroll : 1;
+      let i,
+        a = 0;
+      document.addEventListener("windowScroll", function (o) {
+        const n = window.scrollY;
+        clearTimeout(i),
+          n >= l
+            ? (!e.classList.contains("_header-scroll") &&
+                e.classList.add("_header-scroll"),
+              t &&
+                (n > a
+                  ? e.classList.contains("_header-show") &&
+                    e.classList.remove("_header-show")
+                  : !e.classList.contains("_header-show") &&
+                    e.classList.add("_header-show"),
+                (i = setTimeout(() => {
+                  !e.classList.contains("_header-show") &&
+                    e.classList.add("_header-show");
+                }, s))))
+            : (e.classList.contains("_header-scroll") &&
+                e.classList.remove("_header-scroll"),
+              t &&
+                e.classList.contains("_header-show") &&
+                e.classList.remove("_header-show")),
+          (a = n <= 0 ? 0 : n);
+      });
+    })();
 })();
