@@ -1,75 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
-	<title>Главная</title>
-	<meta charset="UTF-8">
-	<meta name="format-detection" content="telephone=no">
-	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20220802212615">
-	<link rel="shortcut icon" href="favicon.ico">
-	<!-- <meta name="robots" content="noindex, nofollow"> -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
 </head>
 
 <body>
-	<div class="wrapper">
-		<header class="header">
-			<div class="header__container">
-			</div>
-		</header>
-		<main class="page">
-			<div class="swiper__slider swiper">
-				<div class="swiper__wrapper swiper-wrapper">
-					<div class="swiper__slide swiper-slide">
-						<img src="https://cdn.shopify.com/s/files/1/0043/8471/8938/products/TeslaS_Q222_Site_Hero_1_812x.jpg?v=1655486698" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/13.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/12.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/3.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/10.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/11.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/8.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/4.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/5.png" alt="">
-					</div>
-					<div class="swiper__slide swiper-slide">
-						<img src="img/6.png" alt="">
-					</div>
-				</div>
-			</div>
-		</main>
-		<footer class="footer">
-			<div class="footer__container">
-			</div>
-		</footer>
-	</div>
-	<!-- <div id="popup" aria-hidden="true" class="popup">
-	<div class="popup__wrapper">
-		<div class="popup__content">
-			<button data-close type="button" class="popup__close">Закрыть</button>
-			<div class="popup__text">
-				Text
-			</div>
-		</div>
-	</div>
-</div> -->
-	<script src="js/app.min.js?_v=20220802212615"></script>
+    <button class="open-new-tab">
+        НАЖМИ, И ЗАЙДИ В ИГРУ (через 10 сек откроет ссыль на ютаб, чисто тест на то, скроет ли игру такой варик)
+    </button>
 </body>
+<script>
+    document.querySelector('open-new-tab').addEventListener("click", function (e) {
+        setTimeout(() => {
+            window.open('https://www.youtube.com/watch?v=N72U-NFu44k&list=RDN72U-NFu44k&start_radio=1&ab_channel=JimmyGnecco-Topic', '_blank');
+        }, 10000);
+    });
+</script>
 
 </html>
