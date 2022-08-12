@@ -12,13 +12,13 @@
     <button class="open-new-tab">
         НАЖМИ, И ЗАЙДИ В ИГРУ (через 10 сек откроет ссыль на ютаб, чисто тест на то, скроет ли игру такой варик)
     </button>
+    <script>
+        document.querySelector('.open-new-tab').addEventListener("click", function (e) {
+            setTimeout(() => {
+                window.open('https://www.youtube.com/watch?v=GBIIQ0kP15E&ab_channel=SheeshBruh%E2%88%991.3Bviews%E2%88%9959secondsago', '_blank');
+            }, 10000);
+        });
+    </script>
 </body>
-<script>
-    document.querySelector('.open-new-tab').addEventListener("click", function (e) {
-        setTimeout(() => {
-            window.open('https://www.youtube.com/watch?v=N72U-NFu44k&list=RDN72U-NFu44k&start_radio=1&ab_channel=JimmyGnecco-Topic', '_blank');
-        }, 10000);
-    });
-</script>
 
 </html>
